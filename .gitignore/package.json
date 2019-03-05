@@ -1,0 +1,23 @@
+{
+  "name": "bot-videal",
+  "version": "1.0.0",
+  "description": "Bot discord by Drey",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Drey",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "discord.js": "^11.4.2",
+    "ffmpeg-binaries": "^4.0.0",
+    "got": "^9.6.0",
+    "opusscript": "0.0.6",
+    "prism-media": "^1.0.1",
+    "youtube-playlist": "^1.0.2",
+    "yt-player": "^3.1.0",
+    "ytdl-core": "^0.29.1",
+    "ytdl-core-discord": "^1.0.3"
+  }
+}
