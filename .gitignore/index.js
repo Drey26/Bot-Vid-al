@@ -173,4 +173,4 @@ bot.on("ready", function() {
     console.log("Bot is ready");
 });
 
-bot.login(process.env.TOKEN);
+// bot.login(process.env.TOKEN);
