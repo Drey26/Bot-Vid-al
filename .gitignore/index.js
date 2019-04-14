@@ -35,9 +35,9 @@ bot.on("message", function(message) {
         message.reply("Salut toi");
     }
 
-    if (!message.content.startsWith(PREFIX)) return;
+    if (!message.content.startsWith(tokens.prefix)) return;
 
-    var args = message.content.substring(PREFIX.length).split(" ");
+    var args = message.content.substring(tokens.prefix.length).split(" ");
 
     switch (args[0].toLowerCase()) {
         case "ping":
@@ -51,26 +51,25 @@ bot.on("message", function(message) {
         case "help":
             var help = new Discord.RichEmbed()
                 .setTitle("Bot Videal |  help")
-                .addField("Commandes Owner", "pas encore de cmd" )
+                .addField("Commandes Owner", "reload" )
                 .addField("Commandes", "help, notice, play, pause, resume, skip, stop, clear" )
                 .setColor(0x00FFFF)
-                .setFooter("Bot Videal | aides des commandes")
+                .setFooter("Bot Videal | aides des commandes | Faites <la commande> help")
                 .setThumbnail(message.author.avatarURL)
-            message.channel.sendEmbed(help);
+            message.channel.send(help);
             break;
 
         case "notice":
             message.channel.send(message.author.toString() + " je sais pas quoi mettre");
             break;
 
-        case "removerole":
-            message.member.removeRole(message.guild.roles.find("name", "Nouveau"));
-            break;
-        case "deleterole":
-            member.guild.roles.find("name", "Nouveau").delete();
-            break;
-
         case "play":
+
+        if (args[1] === "help") {
+            message.reply("Usage: !play <lien youtube>");
+            return;
+        }
+
             if (!args[1]) {
                 message.channel.send("Merci de mettre un lien");
                 return;
@@ -124,18 +123,23 @@ bot.on("message", function(message) {
 
         case "clear":
             if (!message.member.hasPermission("MANAGE_MESSAGES")) {
-                 message.reply("Désolé, vous n'avez pas la permission d'effectuer cette action");
+                 message.reply("Désolé, `vous n'avez pas la permission d'effectuer cette action`");
                  return
             }
 
+            if (args[1] === "help") {
+                message.reply("Usage: `!clear <nombre>`");
+                return;
+            }
+
             if (!args[1]) {
-            message.channel.send("Vous devez spécifier le nombre de messages à supprimer");
+            message.channel.send("`Vous devez spécifier le nombre de messages à supprimer`");
             return;
             }
 
             var clearmsg = (args[1])
             message.channel.bulkDelete(clearmsg).then(() => { 
-                message.channel.send("messages supprimé");
+                message.channel.send(`${(args[1])} Messages supprimé`);
             })
             break;
 
@@ -145,26 +149,41 @@ bot.on("message", function(message) {
             return;
             }
 
-            let rMember = message.guild.member(message.mentions.users.first()) || message.guild.member.get(args[0]);
+            if (args[1] === "help") {
+                message.reply("Usage: !addrole <user> <role>");
+                return;
+            }
+
+            let rMember = message.mentions.members.first();
             if (!rMember) {
             message.reply("Je ne trouve pas cette personne");
             return;
             }
 
             let role = args.join(" ").slice(22);
-            if (!role);
-            return message.reply("Merci de préciser le rôle");
+            if (!role) {
+            message.reply("Merci de préciser le rôle");
+            return;
+            }
 
-            let gRole = message.guild.roles.find("name", role);
-            if (!gRole);
-            return message.reply("Je ne trouve pas ce rôle");
+            let gRole = message.guild.roles.find(role => role.name === args[0] );
+            if (!gRole) {
+            message.reply("Je ne trouve pas ce rôle");
+            return;
+            }
 
-            if (rMember.role.has(gRole.id));
-            await(rMember.addRole(gRole.id));
+            if (rMember.role.has(gRole.id)){
+                return
+            };
+            rMember.addRole(gRole).catch(console.error);
         break;
 
+        case "reload":
+            if (msg.author.id == tokens.adminID) process.exit();
+            break;
+
         default:
-            message.channel.send("commande invalide");
+            message.channel.send("Commande invalide");
     }
 });
 
