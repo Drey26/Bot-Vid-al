@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const YTDL = require("ytdl-core");
 
-const PREFIX = "!";
+const tokens = require('./tokens.json');
 
 function generateHex() {
     return "#" + Math.floor(Math.random() * 16777215).toString(16);
@@ -25,7 +25,7 @@ var bot = new Discord.Client({autoReconnect:true});
 var servers = {};
 
 bot.on("guildMemberAdd", function(member){
-    member.guild.channels.find("name", "general").sendMessage(member.toString() + " Bienvenue a toi");
+    member.guild.channels.find("name", " ").sendMessage(member.toString() + " Bienvenue a toi");
 });
 
 bot.on("message", function(message) {
@@ -192,4 +192,4 @@ bot.on("ready", function() {
     console.log("Bot is ready");
 });
 
-bot.login(process.env.TOKEN);
+bot.login(tokens.d_token);
