@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const YTDL = require("ytdl-core");
 
-const PREFIX = "!";
+const PREFIX = "^";
 const tokens = require('./tokens.json');
 
 function generateHex() {
@@ -189,7 +189,7 @@ bot.on("message", function(message) {
 });
 
 bot.on("ready", function() {
-    bot.user.setActivity("!help");
+    bot.user.setActivity("^help");
     console.log("Bot is ready");
 });
 
