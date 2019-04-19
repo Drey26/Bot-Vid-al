@@ -60,7 +60,7 @@ bot.on("message", function(message) {
             break;
 
         case "notice":
-            message.channel.send(message.author.toString() + " je sais pas quoi mettre");
+            message.channel.send("@Drey#6678 est mon créateur");
             break;
 
         case "play":
