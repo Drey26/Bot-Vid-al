@@ -33,7 +33,10 @@ bot.on("message", function(message) {
 
     if (message.content === "Hello") {
         message.reply("Salut toi");
-    }
+    };
+    if (message.content === "Idk") {
+        message.reply("C'est embêtant ça");
+    };
 
     if (!message.content.startsWith(tokens.prefix)) return;
 
@@ -188,7 +191,7 @@ bot.on("message", function(message) {
 });
 
 bot.on("ready", function() {
-    bot.user.setActivity("^help");
+    bot.user.setActivity("^help | Dev By Drey");
     console.log("Bot is ready");
 });
 
