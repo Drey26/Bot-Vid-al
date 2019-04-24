@@ -35,7 +35,7 @@ bot.on("message", function(message) {
         message.reply("Salut toi");
     };
     if (message.content === "Idk") {
-        message.reply("C'est embêtant ça");
+        message.channel.send("C'est embêtant ça {user}");
     };
 
     if (!message.content.startsWith(tokens.prefix)) return;
